@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    body{
+      background: navy;
+    }
+    .col{
+      background: powderblue;
+    }
+    h1{
+      color: darkblue;
+    }
+    #disp {
+      background: black;
+      color: white;
+      height: 50px;
+      width: 399px;
+      font-size: 20px;
+      text-align: right;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(6, 60px);
+      gap: 10px;
+      justify-content: center;
+    }
+    .grid-container input {
+      height: 50px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .Bl {
+      background: gray;
+    }
+    .gr {
+      background: black;
+    }
+    #A {
+      background: #ED7024;
+    }
+    #p {
+      height: 100%;
+      background: black;
+    }
+    #e {
+      background: purple;
+    }
+    #C {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="col">
+    <h1>Safix's CALCULATOR</h1>
+  <input type="text" id="disp" disabled>
+    <div class="grid-container">
+      <input class="gr" type="button" value="GT" onclick="answer()">
+      <input class="Bl" type="button" value="7" onclick="show('7')">
+      <input class="Bl" type="button" value="8" onclick="show('8')">
+      <input class="Bl" type="button" value="9" onclick="show('9')">
+      <input class="gr" type="button" value="*" onclick="show('*')">
+      <input class="gr" type="button" value="M+" onclick="memoryAdd()">
+      <input class="gr" type="button" value="%" onclick="calculatePercentage()">
+      <input class="Bl" type="button" value="4" onclick="show('4')">
+      <input class="Bl" type="button" value="5" onclick="show('5')">
+      <input class="Bl" type="button" value="6" onclick="show('6')">
+      <input class="gr" id="p" type="button" value="+" onclick="show('+')">
+      <input class="gr" type="button" value="M-" onclick="memorySubtract()">
+      <input class="gr" type="button" value="CE" onclick="clearEntry()">
+      <input class="Bl" type="button" value="1" onclick="show('1')">
+      <input class="Bl" type="button" value="2" onclick="show('2')">
+      <input class="Bl" type="button" value="3" onclick="show('3')">
+      <input class="gr" type="button" value="-" onclick="show('-')">
+      <input class="gr" type="button" value="MRC" onclick="memoryRecallClear()">
+      <input id="A" type="button" value="AC/ON" onclick="clearAll()">
+      <input class="Bl" type="button" value="0" onclick="show('0')">
+      <input class="Bl" type="button" value="00" onclick="show('00')">
+      <input class="Bl" type="button" value="." onclick="show('.')">
+      <input class="gr" type="button" value="/" onclick="show('/')">
+      <input class="gr" type="button" value="=" onclick="answer()">
+    </div>
+    <h1>THANKS FOR USING</h1>
+  </div>
+
+  <script>
+    const display = document.querySelector("#disp");
+    let memory = 0; // Initialize memory variable
+
+    // Append a value to the display
+    function show(val) {
+      display.value += val;
+    }
+
+    // Clear the display
+    function clearAll() {
+      display.value = "";
+    }
+
+    // Clear the last entry
+    function clearEntry() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    // Evaluate and show the result
+    function answer() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = "Error";
+      }
+    }
+
+    // Calculate the percentage of the current number
+    function calculatePercentage() {
+      if (display.value) {
+        display.value = eval(display.value) / 100;
+      }
+    }
+
+    // Add the current display value to memory
+    function memoryAdd() {
+      if (display.value) {
+        memory += parseFloat(display.value);
+        display.value = ""; // Clear display after adding to memory
+      }
+    }
+
+    // Subtract the current display value from memory
+    function memorySubtract() {
+      if (display.value) {
+        memory -= parseFloat(display.value);
+        display.value = ""; // Clear display after subtracting from memory
+      }
+    }
+
+    // Recall or clear memory
+    function memoryRecallClear() {
+      if (!mrcPressed) {
+        // Show memory on the first press
+        display.value = memory;
+        mrcPressed = true;
+      } else {
+        // Clear memory on the second press
+        memory = 0;
+        mrcPressed = false;
+      }
+    }
+  </script>
+</body>
+</html>
